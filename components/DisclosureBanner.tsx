@@ -4,13 +4,12 @@ interface Props {
 
 export default function DisclosureBanner({ lastUpdated }: Props) {
   return (
-    <div className="sticky top-0 z-50 w-full border-b border-amber-200 bg-amber-50 px-6 py-2 flex items-center justify-between gap-4">
-      <p className="text-xs text-amber-700 leading-relaxed">
-        이 인터페이스의 모든 정보는 후보자가 직접 제공한 자료에 기반합니다.
-        외부 검증이 완료된 정보가 아닙니다.
+    <div className="sticky top-0 z-50 w-full border-b border-zinc-800 bg-zinc-950 px-5 py-2 flex items-center justify-between gap-4 font-mono">
+      <p className="text-xs text-zinc-400">
+        KAVA 12기 신종목이 제작한 무엇이든 물어보세요 봇입니다. AI 스택(Cursor, Codex, Claude Code)을 기본으로 바이브코딩하였습니다.
       </p>
-      <p className="text-xs text-amber-500 shrink-0">
-        최종 업데이트: {lastUpdated}
+      <p className="text-xs text-zinc-600 shrink-0">
+        {lastUpdated}
       </p>
     </div>
   );

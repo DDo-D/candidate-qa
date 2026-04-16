@@ -16,18 +16,18 @@ export default function SuggestionChips({
   selectedChipId,
 }: Props) {
   return (
-    <div className="px-6 py-4 flex flex-wrap gap-2">
+    <div className="px-5 py-2 flex gap-2 font-mono overflow-x-auto md:flex-wrap md:overflow-x-visible scrollbar-none">
       {chips.map((chip) => (
         <button
           key={chip.id}
           onClick={() => onChipSelect(chip.id, chip.question)}
-          className={`rounded-full border px-3 py-1.5 text-sm transition-colors cursor-pointer ${
+          className={`shrink-0 rounded border px-2.5 py-1 text-xs transition-colors cursor-pointer ${
             selectedChipId === chip.id
-              ? "border-zinc-400 bg-zinc-100 text-zinc-700"
-              : "border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50"
+              ? "border-emerald-600 bg-emerald-950 text-emerald-300"
+              : "border-zinc-600 bg-zinc-900 text-zinc-300 hover:border-zinc-400 hover:text-zinc-100"
           }`}
         >
-          {chip.label}
+          $ {chip.label}
         </button>
       ))}
     </div>

@@ -6,7 +6,8 @@ import ChatThread from "@/components/ChatThread";
 import StickyInputBar from "@/components/StickyInputBar";
 import { mockProfile } from "@/data/mock-profile";
 import { mockFAQs, CHIP_IDS, findFAQById, findFAQByText } from "@/data/mock-faq";
-import type { Message, AnswerMessage, LoadingMessage } from "@/types/message";
+import { checkEasterEgg } from "@/data/easter-eggs";
+import type { Message, AnswerMessage, LoadingMessage, EasterEggMessage } from "@/types/message";
 import type { FAQEntry } from "@/types/candidate";
 
 const chips = mockFAQs
@@ -53,9 +54,36 @@ export default function Page() {
   function handleSubmit() {
     if (!inputValue.trim() || isLoading) return;
 
-    const queryChipId = selectedChipId;
     const queryText = inputValue;
+    setInputValue("");
+    setSelectedChipId(undefined);
+
+    if (queryText.trim().toLowerCase() === "clear") {
+      setMessages(INITIAL_MESSAGES);
+      return;
+    }
+
+    const egg = selectedChipId ? null : checkEasterEgg(queryText);
+
     const userMsgId = `user_${Date.now()}`;
+
+    if (egg) {
+      const eggMsg: EasterEggMessage = {
+        id: `egg_${Date.now()}`,
+        type: "easter_egg",
+        command: egg.command,
+        output: egg.output,
+        timestamp: Date.now(),
+      };
+      setMessages((prev) => [
+        ...prev,
+        { id: userMsgId, type: "user_question", text: queryText, timestamp: Date.now() },
+        eggMsg,
+      ]);
+      return;
+    }
+
+    const queryChipId = selectedChipId;
     const answerMsgId = `answer_${Date.now()}`;
 
     const loadingMsg: LoadingMessage = {
@@ -69,8 +97,6 @@ export default function Page() {
       { id: userMsgId, type: "user_question", text: queryText, timestamp: Date.now() },
       loadingMsg,
     ]);
-    setInputValue("");
-    setSelectedChipId(undefined);
     setIsLoading(true);
 
     setTimeout(() => {
@@ -94,8 +120,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
-      <CandidateHeader profile={mockProfile} />
-      <ChatThread messages={messages} />
+      <ChatThread messages={messages} header={<CandidateHeader profile={mockProfile} />} />
       <StickyInputBar
         chips={chips}
         inputValue={inputValue}

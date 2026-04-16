@@ -40,8 +40,8 @@ STATUS.md가 최신이 아니면 다음 세션의 에이전트가 잘못된 상�
 
 | 파일 | 이유 |
 |------|------|
-| `types/candidate.ts` | 타입 단일 진실 소스. FAQEntry, SourceRef 등 |
-| `components/AnswerCard.tsx` | 4-state card. UI spec lock |
+| `types/candidate.ts` | 타입 단일 진실 소스. optional 필드 추가 가능, 기존 필드 변경 금지 |
+| `components/AnswerCard.tsx` | 4-state card + links 블록. 기존 블록 변경 금지, 조건부 렌더링 블록 추가 가능 |
 | `components/SourceInfo.tsx` | 출처 상시 노출 + snippet 토글. trust 구조 |
 | `data/mock-profile.ts` | 후보자 정보. 후보자 본인이 수정 |
 | `data/mock-faq.ts` | FAQ 5개. 내용 추가 가능, 구조 변경 금지 |

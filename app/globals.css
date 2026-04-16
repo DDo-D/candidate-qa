@@ -11,3 +11,11 @@ body {
 .thread-scroll {
   overscroll-behavior-y: contain;
 }
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

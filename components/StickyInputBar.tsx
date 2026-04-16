@@ -27,8 +27,8 @@ export default function StickyInputBar({
   selectedChipId,
 }: Props) {
   return (
-    <div className="shrink-0 z-40 bg-white border-t border-zinc-200">
-      <div className="px-0 pt-2 pb-4">
+    <div className="shrink-0 z-40 bg-zinc-950 border-t border-zinc-800">
+      <div className="px-0 pt-1 pb-2 md:pt-2 md:pb-4">
         <SuggestionChips
           chips={chips}
           onChipSelect={onChipSelect}

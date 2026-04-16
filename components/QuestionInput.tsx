@@ -25,46 +25,41 @@ export default function QuestionInput({
   }
 
   return (
-    <div className="px-6 py-4 flex flex-col gap-2">
+    <div className="px-4 py-2 md:px-5 md:py-4 flex flex-col gap-1.5 md:gap-2">
       <textarea
-        className="w-full resize-none rounded-lg border border-zinc-200 px-3 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-zinc-400 disabled:bg-zinc-50 disabled:text-zinc-400"
-        rows={3}
-        placeholder="후보자에 대해 궁금한 점을 입력하세요."
+        className="w-full resize-none rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 md:py-2.5 text-[15px] text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 disabled:bg-zinc-900/50 disabled:text-zinc-600 font-mono"
+        rows={2}
+        placeholder="$ 무엇이든 물어보세요..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
         maxLength={MAX_LENGTH}
         disabled={isLoading}
       />
-      <div className="flex items-start justify-between gap-4">
-        <p className="text-xs text-zinc-400 leading-relaxed">
-          후보자의 경험, 관점, 프로젝트에 대한 질문을 입력할 수 있습니다.
-          <span className="block mt-0.5">
-            예: &ldquo;Scout형 심사역이란 무엇인가요?&rdquo; &nbsp;·&nbsp;
-            &ldquo;AI 도구를 실제로 만들어본 적 있나요?&rdquo;
-          </span>
+      <div className="flex items-center justify-between gap-3">
+        <p className="font-mono text-xs text-zinc-500 leading-relaxed truncate">
+          경험, 관점, 프로젝트에 대해 질문할 수 있습니다.
         </p>
-        {showCounter && (
-          <span className="text-xs text-zinc-400 shrink-0">
-            {value.length} / {MAX_LENGTH}
-          </span>
-        )}
-      </div>
-      <div className="flex justify-end">
-        <button
-          onClick={onSubmit}
-          disabled={!canSubmit}
-          className="rounded-md bg-zinc-800 px-4 py-2 text-sm text-white hover:bg-zinc-700 disabled:bg-zinc-200 disabled:text-zinc-400 disabled:cursor-not-allowed transition-colors"
-        >
-          {isLoading ? (
-            <span className="flex items-center gap-2">
-              <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-zinc-400 border-t-transparent" />
-              처리 중
+        <div className="flex items-center gap-2 shrink-0">
+          {showCounter && (
+            <span className="font-mono text-xs text-zinc-600">
+              {value.length}/{MAX_LENGTH}
             </span>
-          ) : (
-            "질문하기 →"
           )}
-        </button>
+          <button
+            onClick={onSubmit}
+            disabled={!canSubmit}
+            className="font-mono rounded-md bg-emerald-600 px-3 py-1.5 md:px-4 md:py-2 text-sm text-white hover:bg-emerald-500 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:cursor-not-allowed transition-colors"
+          >
+            {isLoading ? (
+              <span className="flex items-center gap-2">
+                <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-zinc-400 border-t-transparent" />
+              </span>
+            ) : (
+              "실행 →"
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );

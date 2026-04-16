@@ -9,30 +9,30 @@ const BADGE = {
   grounded_full: {
     indicator: "●",
     label: "근거 있음",
-    indicatorClass: "text-zinc-600",
-    labelClass: "text-zinc-600",
-    wrapperClass: "bg-white border-zinc-200",
+    indicatorClass: "text-emerald-400",
+    labelClass: "text-emerald-400",
+    wrapperClass: "bg-zinc-900 border-zinc-800",
   },
   grounded_partial: {
     indicator: "◐",
     label: "부분 확인",
-    indicatorClass: "text-amber-600",
-    labelClass: "text-amber-600",
-    wrapperClass: "bg-white border-amber-200",
+    indicatorClass: "text-amber-400",
+    labelClass: "text-amber-400",
+    wrapperClass: "bg-zinc-900 border-amber-900/50",
   },
   restricted: {
     indicator: "○",
     label: "공개 제한",
-    indicatorClass: "text-zinc-400",
-    labelClass: "text-zinc-400",
-    wrapperClass: "bg-zinc-50 border-zinc-200",
+    indicatorClass: "text-zinc-500",
+    labelClass: "text-zinc-500",
+    wrapperClass: "bg-zinc-900/50 border-zinc-800",
   },
   no_data: {
     indicator: "—",
     label: "정보 없음",
-    indicatorClass: "text-zinc-400",
-    labelClass: "text-zinc-400",
-    wrapperClass: "bg-zinc-50 border-zinc-200",
+    indicatorClass: "text-zinc-500",
+    labelClass: "text-zinc-500",
+    wrapperClass: "bg-zinc-900/50 border-zinc-800",
   },
 } as const;
 
@@ -44,7 +44,7 @@ export default function AnswerCard({ entry }: Props) {
 
   return (
     <div
-      className={`mx-6 rounded-lg border px-4 py-4 flex flex-col gap-3 ${badge.wrapperClass}`}
+      className={`mx-4 rounded-lg border px-4 py-4 flex flex-col gap-3 ${badge.wrapperClass}`}
     >
       {/* State badge */}
       <div className="flex items-center gap-1.5">
@@ -56,13 +56,31 @@ export default function AnswerCard({ entry }: Props) {
 
       {/* Answer body — grounded states only */}
       {isGrounded && entry.answer && (
-        <p className="text-sm text-zinc-800 leading-relaxed">{entry.answer}</p>
+        <p className="text-[15px] text-zinc-200 leading-relaxed">{entry.answer}</p>
+      )}
+
+      {/* External links */}
+      {isGrounded && entry.links && entry.links.length > 0 && (
+        <div className="flex flex-wrap gap-x-4 gap-y-1">
+          {entry.links.map((link) => (
+            <a
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-mono text-sm text-emerald-400 underline underline-offset-2 decoration-emerald-800 hover:text-emerald-300 hover:decoration-emerald-600 transition-colors"
+            >
+              <span aria-hidden>→</span>
+              {link.label}
+            </a>
+          ))}
+        </div>
       )}
 
       {/* Disclaimer box — partial only */}
       {entry.answer_type === "grounded_partial" && entry.disclaimer && (
-        <div className="rounded border border-amber-100 bg-amber-50 px-3 py-2">
-          <p className="text-xs text-amber-700 leading-relaxed">
+        <div className="rounded border border-amber-900/50 bg-amber-950/30 px-3 py-2">
+          <p className="text-xs text-amber-400/80 leading-relaxed">
             확인되지 않은 범위: {entry.disclaimer}
           </p>
         </div>
@@ -70,7 +88,7 @@ export default function AnswerCard({ entry }: Props) {
 
       {/* Empty state message — restricted / no_data */}
       {!isGrounded && (
-        <p className="text-sm text-zinc-400">
+        <p className="text-[15px] text-zinc-400">
           {entry.refusal_reason ??
             (entry.answer_type === "restricted"
               ? "이 항목은 후보자가 공개 범위에서 제외하였습니다."

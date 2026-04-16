@@ -23,8 +23,15 @@ export interface LoadingMessage extends BaseMessage {
   type: "loading";
 }
 
+export interface EasterEggMessage extends BaseMessage {
+  type: "easter_egg";
+  command: string;
+  output: string;
+}
+
 export type Message =
   | IntroMessage
   | UserMessage
   | AnswerMessage
-  | LoadingMessage;
+  | LoadingMessage
+  | EasterEggMessage;

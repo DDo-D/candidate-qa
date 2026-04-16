@@ -1,7 +1,7 @@
 # Implementation Status
 
 > 최종 업데이트: 2026-04-16
-> 빌드 상태: ✅ passing (Next.js 16.2.4, TypeScript clean)
+> 빌드 상태: ✅ passing (Next.js 16.2.4, TypeScript clean, Phase 5 완료)
 
 ---
 
@@ -62,6 +62,15 @@
 - [x] CandidateAvatar 컴포넌트 (28px monogram "종", zinc-800 circle)
 - [x] IntroMessage에 avatar 배치 (identity anchor, thread 시작점 1회)
 - [x] AGENTS.md 금지 규칙 업데이트 (avatar 승인 반영)
+- [x] CandidateAvatar를 image-based로 교체 (scouter stylized portrait, 112px)
+- [x] next/image + onError fallback 구조
+
+### Phase 5: GitHub Link FAQ
+- [x] FAQEntry 타입에 optional `links` 필드 추가 (controlled unlock)
+- [x] faq_002 답변에 GitHub 프로필 + 5개 프로젝트 목록 반영
+- [x] AnswerCard에 클릭 가능한 links 렌더링 블록 추가 (answer와 disclaimer 사이)
+- [x] AGENTS.md lock 테이블 업데이트 (optional 필드/블록 추가 허용으로 조정)
+- [x] KEYWORD_MAP에 "ai 사용", "ai 경험", "깃허브", "github", "프로젝트" 추가
 
 ### 즉시 가능 (코드만 추가하면 됨)
 

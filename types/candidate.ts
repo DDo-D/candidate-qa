@@ -22,6 +22,7 @@ export interface FAQEntry {
   confidence: Confidence;
   answer: string;
   sources: SourceRef[];
+  links?: { label: string; url: string }[];
   disclaimer?: string;
   refusal_reason?: string;
 }

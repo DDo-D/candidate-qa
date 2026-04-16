@@ -6,21 +6,30 @@ interface Props {
 
 export default function CandidateHeader({ profile }: Props) {
   return (
-    <div className="px-6 py-3 border-b border-zinc-200 flex flex-col gap-1.5">
-      <div className="flex items-baseline gap-2 flex-wrap">
-        <h1 className="text-base font-semibold text-zinc-900">{profile.name}</h1>
-        <span className="text-zinc-300">·</span>
-        <span className="text-sm text-zinc-500">{profile.position}</span>
+    <div className="bg-zinc-950 font-mono text-sm border-b border-zinc-800">
+      <div className="flex items-center gap-1.5 px-4 py-2 border-b border-zinc-800">
+        <span className="size-2.5 rounded-full bg-red-400" />
+        <span className="size-2.5 rounded-full bg-amber-400" />
+        <span className="size-2.5 rounded-full bg-emerald-400" />
+        <span className="ml-3 text-xs text-zinc-500">~/candidate-qa</span>
       </div>
-      <div className="flex flex-wrap gap-1.5">
-        {profile.keywords.map((kw) => (
-          <span
-            key={kw}
-            className="bg-zinc-100 text-zinc-500 text-xs rounded px-1.5 py-0.5"
-          >
-            {kw}
-          </span>
-        ))}
+      <div className="px-4 py-3 flex flex-col gap-1">
+        <div className="flex items-baseline gap-2 flex-wrap">
+          <span className="text-emerald-400 select-none">$</span>
+          <span className="text-zinc-100">{profile.name}</span>
+          <span className="text-zinc-600">/</span>
+          <span className="text-zinc-400 text-xs">AI Native VC</span>
+        </div>
+        <p className="text-sm text-zinc-300 pl-4">
+          KAVA 12기 신종목이 제작한 AMA 봇입니다. AI 코딩 에이전트(Cursor, Codex, Claude Code)와 함께 바이브코딩 했습니다.
+        </p>
+        <div className="flex flex-wrap gap-x-2 gap-y-0.5 pl-4">
+          {profile.keywords.map((kw) => (
+            <span key={kw} className="text-zinc-400 text-xs">
+              --{kw.replace(/\s/g, "-")}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
