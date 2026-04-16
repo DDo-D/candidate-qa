@@ -179,4 +179,4 @@ neofetch · git log · sudo · rm -rf · exit · coffee · clear
 
 ## 원본
 
-KAVA 12기 동기가 제작한 템플릿입니다.
+**참고 데모**: [kava-ama.vercel.app](https://kava-ama.vercel.app) · **원본**: [@berkshirehathaways](https://github.com/berkshirehathaways)
