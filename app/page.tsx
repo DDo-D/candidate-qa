@@ -5,15 +5,17 @@ import CandidateHeader from "@/components/CandidateHeader";
 import ChatThread from "@/components/ChatThread";
 import StickyInputBar from "@/components/StickyInputBar";
 import { mockProfile } from "@/data/mock-profile";
-import { mockFAQs, findFAQById, findFAQByText } from "@/data/mock-faq";
+import { mockFAQs, CHIP_IDS, findFAQById, findFAQByText } from "@/data/mock-faq";
 import type { Message, AnswerMessage, LoadingMessage } from "@/types/message";
 import type { FAQEntry } from "@/types/candidate";
 
-const chips = mockFAQs.map((f) => ({
-  id: f.id,
-  label: f.chip_label,
-  question: f.question,
-}));
+const chips = mockFAQs
+  .filter((f) => (CHIP_IDS as readonly string[]).includes(f.id))
+  .map((f) => ({
+    id: f.id,
+    label: f.chip_label,
+    question: f.question,
+  }));
 
 const NO_DATA_FALLBACK: FAQEntry = {
   id: "_fallback",

@@ -43,11 +43,26 @@
 
 ## 미완료 작업
 
+### Phase 3: 실제 데이터 강화
+- [x] FAQ 항목 확장 (5개 → 14개, 4-state 전체 커버)
+- [x] mock-profile.ts keywords 보강
+- [x] IntroMessage에 후보자명·KAVA 맥락 반영
+- [x] SuggestionChips 5개 제한 (CHIP_IDS 기반 필터)
+- [x] findFAQByText 키워드 매칭 개선 (KEYWORD_MAP 추가)
+- [x] source_file 참조를 설계 문서 체계(resume.md, portfolio.md, philosophy.md)에 맞춤
+
+### Phase 3.5: Content Sharpening
+- [x] grounded_full 답변 구체화 (방어적 도입부 제거, 반복 제거, 자기 홍보 제거)
+- [x] grounded_partial disclaimer 간결화
+- [x] source snippet을 answer 축약이 아닌 excerpt 톤으로 분리
+- [x] IntroMessage 문구를 시스템 고지문 톤으로 전환
+- [x] chip_label 5개를 VC 담당자 관점 표현으로 교체
+
 ### 즉시 가능 (코드만 추가하면 됨)
 
-- [ ] FAQ 항목 추가 (현재 5개 → 10~15개로 확장, 후보자 본인이 내용 작성)
-- [ ] structured_profile.json 실제 데이터 작성 (현재 mock-profile만 있음)
+- [ ] 후보자 본인이 FAQ 답변 내용 실제 검토 및 수정
 - [ ] evidence 문서 작성 (`data/evidence/*.md`)
+- [ ] FAQ 추가 확장 (현재 14개, 필요시 더 추가 가능)
 
 ### 다음 패치 (설계 합의 완료, 미구현)
 
