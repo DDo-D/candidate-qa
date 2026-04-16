@@ -53,7 +53,7 @@ STATUS.md가 최신이 아니면 다음 세션의 에이전트가 잘못된 상�
 3. DisclosureBanner에 닫기 버튼 추가하기
 4. 긍정적 포장 언어 사용 (brilliant, exceptional, outstanding 등)
 5. 후보자 평가/추천 문구 생성
-6. avatar, 프로필 사진, 이모지 장식 추가
+6. 프로필 사진, 이모지 장식 추가 (CandidateAvatar는 승인됨 — IntroMessage 내 identity anchor)
 7. 블로그 기능 (posts, tags, RSS) 추가 시도
 
 ## 색상 정책

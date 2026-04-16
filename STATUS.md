@@ -58,6 +58,11 @@
 - [x] IntroMessage 문구를 시스템 고지문 톤으로 전환
 - [x] chip_label 5개를 VC 담당자 관점 표현으로 교체
 
+### Phase 4: Avatar Minimal Patch
+- [x] CandidateAvatar 컴포넌트 (28px monogram "종", zinc-800 circle)
+- [x] IntroMessage에 avatar 배치 (identity anchor, thread 시작점 1회)
+- [x] AGENTS.md 금지 규칙 업데이트 (avatar 승인 반영)
+
 ### 즉시 가능 (코드만 추가하면 됨)
 
 - [ ] 후보자 본인이 FAQ 답변 내용 실제 검토 및 수정
