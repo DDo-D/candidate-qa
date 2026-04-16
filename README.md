@@ -5,7 +5,7 @@ KAVA 12기 동기들을 위한 **Ask Me Anything 봇** 템플릿입니다.
 
 > AI 코딩 에이전트(Cursor, Codex, Claude Code)와 함께 바이브코딩으로 만들었습니다.
 
-**데모**: [kava-ama.vercel.app](https://kava-ama.vercel.app)
+**데모**: 직접 배포해서 확인해보세요!
 
 ---
 
@@ -179,4 +179,4 @@ neofetch · git log · sudo · rm -rf · exit · coffee · clear
 
 ## 원본
 
-신종목([@berkshirehathaways](https://github.com/berkshirehathaways))이 제작했습니다.
+KAVA 12기 동기가 제작한 템플릿입니다.
