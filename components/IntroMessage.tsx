@@ -8,18 +8,21 @@ export default function IntroMessage() {
         <div className="flex flex-col gap-1 font-mono">
           <div className="flex items-center gap-2">
             <span className="text-emerald-400 text-xs select-none">&gt;</span>
-            <span className="text-base font-medium text-zinc-100">신종목 AMA 봇</span>
+            {/* ✏️ 봇 이름을 수정하세요 */}
+            <span className="text-base font-medium text-zinc-100">홍길동 AMA 봇</span>
           </div>
           <p className="text-sm text-zinc-400 pl-4 leading-relaxed">
-            신종목에 대해 물어보세요.<br />
-            신종목의 사고를 복제한 AI가 대신 대답해드립니다.
+            {/* ✏️ 소개 문구를 수정하세요 */}
+            홍길동에 대해 물어보세요.<br />
+            홍길동의 사고를 복제한 AI가 대신 대답해드립니다.
           </p>
           <a
-            href="https://kavalog.vercel.app/"
+            href="https://your-blog.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-xs text-zinc-500 hover:text-emerald-400 transition-colors pl-4 mt-0.5"
           >
+            {/* ✏️ 블로그 URL을 수정하세요 */}
             → blog
           </a>
         </div>

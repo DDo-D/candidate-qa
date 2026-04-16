@@ -5,21 +5,23 @@ import { mockProfile } from "@/data/mock-profile";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 
+// ✏️ 본인 Vercel 도메인으로 수정하세요
+const SITE_URL = "https://your-ama.vercel.app";
+
 const title = `${mockProfile.name} — AMA 봇`;
-const description =
-  "KAVA 12기 신종목이 제작한 AMA 봇. AI 코딩 에이전트(Cursor, Codex, Claude Code)와 함께 바이브코딩 했습니다.";
-const ogImage = "https://kava-ama.vercel.app/og.png";
+const description = `KAVA 12기 ${mockProfile.name}이 제작한 AMA 봇. AI 코딩 에이전트와 함께 바이브코딩 했습니다.`;
+const ogImage = `${SITE_URL}/og.png`;
 
 export const metadata: Metadata = {
   title,
   description,
-  metadataBase: new URL("https://kava-ama.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title,
     description,
-    url: "https://kava-ama.vercel.app",
-    siteName: "신종목 AMA 봇",
-    images: [{ url: ogImage, width: 1200, height: 630, alt: "신종목 AMA 봇" }],
+    url: SITE_URL,
+    siteName: `${mockProfile.name} AMA 봇`,
+    images: [{ url: ogImage, width: 1200, height: 630, alt: `${mockProfile.name} AMA 봇` }],
     locale: "ko_KR",
     type: "website",
   },

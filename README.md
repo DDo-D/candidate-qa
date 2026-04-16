@@ -1,148 +1,182 @@
-# Candidate Q&A Interface
+# 🤖 Candidate Q&A — 나만의 AMA 봇 만들기
 
-VC 심사역이 후보자 자료를 검토하는 중 생기는 즉각적 질문에 대해,
-근거 있는 답변을 빠르게 반환하는 **문서 기반 제한형 Q&A 인터페이스**.
+KAVA 12기 동기들을 위한 **Ask Me Anything 봇** 템플릿입니다.
+포크해서 본인 정보만 채우면 나만의 AMA 봇을 바로 배포할 수 있습니다.
 
-> 챗봇이 아니다. 후보자를 대신하는 봇도 아니다.
-> PPT나 이력서를 읽다가 생기는 질문을 바로 던질 수 있게 해주는 **검토 보조 레이어**다.
+> AI 코딩 에이전트(Cursor, Codex, Claude Code)와 함께 바이브코딩으로 만들었습니다.
 
-## Product Identity
+**데모**: [kava-ama.vercel.app](https://kava-ama.vercel.app)
 
-| 항목 | 내용 |
-|------|------|
-| 제품 유형 | Due Diligence Friction Reducer |
-| 핵심 가치 | 검토 속도 향상 + 신뢰 보존 |
-| 사용자 | VC 하우스 담당자 / 심사역 |
-| 후보자 | 신종목 (KAVA 인턴십 · 심사역 트랙) |
-| 신뢰 공식 | 신뢰 = 답변 속도 × 근거 명확성 × 한계의 솔직함 |
+---
 
-## Tech Stack
+## 주요 기능
+
+- 🖥️ 터미널 테마 다크 UI
+- 💬 FAQ 기반 Q&A (근거 표시, 출처 인용, 신뢰도 뱃지)
+- 🏷️ 제안 칩 (자주 묻는 질문 바로가기)
+- 🥚 터미널 이스터에그 (`help`, `whoami`, `ls`, `neofetch` 등)
+- 🖼️ OG 이미지 + 소셜 미리보기
+- 📱 모바일 반응형
+
+---
+
+## 빠른 시작 (10분이면 됩니다)
+
+### 1단계: 포크 & 설치
+
+GitHub에서 **Fork** 버튼을 누르고:
+
+```bash
+git clone https://github.com/내아이디/candidate-qa.git
+cd candidate-qa
+npm install
+```
+
+### 2단계: 내 정보 입력
+
+아래 5개 파일만 수정하면 됩니다. 파일마다 `✏️` 주석이 달린 곳을 찾아 바꾸세요.
+
+#### 📄 `data/mock-profile.ts` — 기본 프로필
+
+```typescript
+export const mockProfile: CandidateProfile = {
+  name: "내이름",                              // ← 본인 이름
+  position: "KAVA 인턴십 지원 · 심사역 트랙",    // ← 직함
+  tagline: "한 줄 소개",                        // ← 한 줄 어필
+  keywords: ["키워드1", "키워드2", "키워드3"],    // ← 터미널 --플래그로 표시됨
+  lastUpdated: "2026-04-16",
+};
+```
+
+#### 📄 `data/mock-faq.ts` — FAQ 질문과 답변 (핵심!)
+
+예시 FAQ 3개가 들어있습니다. 본인 답변으로 바꾸고, 더 추가하세요:
+
+```typescript
+{
+  id: "faq_001",
+  chip_label: "지원 동기",              // 칩 버튼에 표시되는 라벨
+  question: "VC를 지원하는 이유가 무엇인가요?",
+  answer_type: "grounded_full",        // 아래 '답변 유형' 참조
+  confidence: "high",
+  answer: "여기에 자연스러운 문장으로 답변 작성",
+  sources: [{
+    source_file: "파일명.md",
+    section: "섹션명",
+    chunk_id: "고유ID",
+    supporting_snippet: "출처 요약",
+    verifiable: false,
+  }],
+},
+```
+
+**칩으로 노출**하려면 `CHIP_IDS` 배열에 ID 추가 (최대 5개 권장):
+```typescript
+export const CHIP_IDS = ["faq_001", "faq_002", "faq_003"] as const;
+```
+
+**키워드 검색**을 위해 `KEYWORD_MAP`에 매핑 추가:
+```typescript
+const KEYWORD_MAP: Record<string, string> = {
+  "vc": "faq_001", "동기": "faq_001",
+  // ...
+};
+```
+
+#### 📄 `data/easter-eggs.ts` — 터미널 이스터에그
+
+`cat resume`, `neofetch` 등의 응답에 본인 정보를 넣으세요. `✏️` 주석을 찾으면 됩니다.
+
+#### 📄 `components/IntroMessage.tsx` — 인트로 카드
+
+봇 이름, 소개 문구, 블로그 링크를 수정하세요.
+
+#### 📄 `components/CandidateHeader.tsx` — 상단 헤더
+
+헤더 설명 문구를 수정하세요.
+
+### 3단계: 이미지 넣기
+
+| 파일 | 설명 | 사이즈 |
+|------|------|--------|
+| `public/avatar.png` | 프로필 사진 | 정사각형 (224x224 이상 권장) |
+| `public/og.png` | 링크 공유 시 미리보기 이미지 | 1200x630 |
+
+이미지가 없어도 동작합니다 (아바타는 monogram fallback이 있음).
+
+### 4단계: 로컬에서 확인
+
+```bash
+npm run dev
+# → http://localhost:3000 에서 확인
+```
+
+### 5단계: Vercel 배포
+
+```bash
+npx vercel --prod
+```
+
+또는 GitHub에 푸시하면 Vercel이 자동 배포합니다.
+
+배포 후 `app/layout.tsx`에서 `SITE_URL`을 본인 Vercel 도메인으로 바꿔주세요:
+```typescript
+const SITE_URL = "https://내이름-ama.vercel.app";
+```
+
+---
+
+## 답변 유형 가이드
+
+| answer_type | 뱃지 | 언제 사용 |
+|-------------|------|-----------|
+| `grounded_full` | 🟢 근거 있음 | 자료에 명확한 근거가 있을 때 |
+| `grounded_partial` | 🟡 일부 근거 | 부분적 근거만 있을 때 (disclaimer 추가) |
+| `no_data` | ⚫ 정보 없음 | 자료에 해당 정보가 없을 때 |
+| `restricted` | 🔴 공개 제외 | 공개하고 싶지 않은 항목 |
+
+---
+
+## 이스터에그
+
+입력창에 터미널 명령어를 치면 숨겨진 반응이 나옵니다:
+
+```
+help · whoami · ls · cat resume · pwd · ping
+neofetch · git log · sudo · rm -rf · exit · coffee · clear
+```
+
+`data/easter-eggs.ts`에서 응답을 본인 것으로 커스터마이징하세요.
+
+---
+
+## 기술 스택
 
 | 구분 | 선택 |
 |------|------|
-| Framework | Next.js 16 (App Router, Turbopack) |
+| Framework | Next.js 16 (App Router) |
 | Language | TypeScript 5 |
 | Styling | Tailwind CSS 4 |
 | Runtime | React 19 |
-| Deployment | Vercel (예정) |
+| Deployment | Vercel |
 
-## Quick Start
+---
 
-```bash
-cd candidate-qa
-npm install
-npm run dev
-# → http://localhost:3000
-```
+## 수정할 파일 요약
 
-## Architecture
+| 파일 | 뭘 바꾸나 |
+|------|-----------|
+| `data/mock-profile.ts` | 이름, 직함, 키워드 |
+| `data/mock-faq.ts` | FAQ 질문과 답변 **(가장 중요!)** |
+| `data/easter-eggs.ts` | 이스터에그 응답 |
+| `components/IntroMessage.tsx` | 봇 이름, 소개, 블로그 링크 |
+| `components/CandidateHeader.tsx` | 헤더 설명 문구 |
+| `app/layout.tsx` | Vercel 도메인 (SITE_URL) |
+| `public/avatar.png` | 프로필 사진 |
+| `public/og.png` | OG 미리보기 이미지 |
 
-### Phase 1 (현재) — FAQ-first + Structured Data
+---
 
-```
-[User Input]
-     │
-     ▼
-[StickyInputBar] ← chips (5개 FAQ) + textarea
-     │
-     ▼
-[Mock Lookup] ← chip ID 직접 매핑 / includes 기반 텍스트 매칭
-     │
-     ├─ match found → FAQ 직접 반환
-     ├─ match miss → no_data fallback
-     │
-     ▼
-[AnswerCard] ← 4-state: grounded_full | grounded_partial | restricted | no_data
-     │
-     ▼
-[SourceInfo] ← file + section 상시 노출 + snippet 토글
-```
+## 원본
 
-### Phase 2 (미구현) — Lightweight Retrieval 추가
-
-FAQ/structured data miss 시 evidence 문서에서 벡터 검색 fallback.
-
-## Answer State Model
-
-| State | Badge | 조건 |
-|-------|-------|------|
-| `grounded_full` | ● 근거 있음 | 질문이 제공 데이터와 명확히 매핑됨 |
-| `grounded_partial` | ◐ 부분 확인 | 관련 데이터 존재하나 불완전 |
-| `restricted` | ○ 공개 제한 | 후보자가 공개 범위 명시적 제한 |
-| `no_data` | — 정보 없음 | 데이터 자체가 없음 |
-
-향후 추가 예정: `adversarial` (프롬프트 인젝션), `irrelevant` (무관 질문)
-
-## Guardrail Policy
-
-1. 제공된 문서에 근거가 없는 내용은 절대 답변하지 않는다.
-2. 추측, 추론, 미래 예측은 "문서에 없음"으로 처리한다.
-3. 긍정적 포장 언어(brilliant, exceptional 등)는 사용하지 않는다.
-4. 후보자의 인성, 적합성, 고용 가능성에 대한 평가는 하지 않는다.
-5. 출처를 반드시 명시한다. 출처 없는 답변은 허용하지 않는다.
-6. `verifiable: false` 항목은 "[후보자 진술 기반 — 외부 검증 없음]" 태그 자동 삽입.
-
-## File Structure
-
-```
-candidate-qa/
-├── app/
-│   ├── layout.tsx              # DisclosureBanner 마운트, flex column layout
-│   ├── page.tsx                # 전체 조립: Header + ChatThread + StickyInputBar
-│   └── globals.css             # Tailwind base + thread scroll
-│
-├── components/
-│   ├── DisclosureBanner.tsx    # amber banner, sticky top (닫기 없음)
-│   ├── CandidateHeader.tsx     # compact 2행: 이름·포지션 + 키워드 태그
-│   ├── ChatThread.tsx          # messages[] 렌더, overflow-y-auto, UserMessage 기준 scroll
-│   ├── IntroMessage.tsx        # thread 첫 시스템 카드
-│   ├── UserMessage.tsx         # 우측 bubble (zinc-800)
-│   ├── AnswerCard.tsx          # ★ 4-state card (변경 금지)
-│   ├── SourceInfo.tsx          # ★ file+section 상시 노출 + snippet 토글 (변경 금지)
-│   ├── SuggestionChips.tsx     # 5개 chip, 클릭 시 textarea 채우기만
-│   ├── QuestionInput.tsx       # textarea + helper text + submit
-│   └── StickyInputBar.tsx      # chips + input 래퍼, shrink-0
-│
-├── data/
-│   ├── mock-profile.ts         # CandidateProfile (신종목)
-│   └── mock-faq.ts             # FAQ 5개 + findFAQById/findFAQByText
-│
-├── types/
-│   ├── candidate.ts            # ★ AnswerType, Confidence, SourceRef, FAQEntry, CandidateProfile
-│   └── message.ts              # IntroMessage, UserMessage, AnswerMessage, LoadingMessage
-│
-├── AGENTS.md                   # AI 에이전트 핸드오프 컨텍스트
-├── STATUS.md                   # 현재 구현 상태 + 남은 작업
-└── README.md                   # 이 파일
-```
-
-## Design Decisions
-
-### UI: Chat-like 컨테이너, Structured Q&A 본체
-
-- 겉은 chat thread (질문-답변 쌍 누적)
-- 속은 state-aware answer card (자유 텍스트 bubble 아님)
-- user_question만 bubble, answer는 항상 full-width card
-
-### Trust: Self-serving bias를 숨기지 않고 드러냄
-
-- Persistent Disclosure Banner: "후보자 제공 자료 기반 · 외부 미검증"
-- Per-answer state badge (●/◐/○/—)
-- SourceInfo 기본 노출 (file + section)
-- `verifiable: false` 태그 자동 삽입
-
-### Color: 극도의 절제
-
-- 기본: zinc 계열 전용
-- amber: DisclosureBanner + grounded_partial만
-- emerald, blue, red: 사용 금지
-- grounded_full: 별도 강조색 없음 (정상 카드 = 신뢰 신호)
-
-## Scripts
-
-```bash
-npm run dev      # 개발 서버 (Turbopack)
-npm run build    # 프로덕션 빌드
-npm run start    # 프로덕션 서버
-npm run lint     # ESLint
-```
+신종목([@berkshirehathaways](https://github.com/berkshirehathaways))이 제작했습니다.
